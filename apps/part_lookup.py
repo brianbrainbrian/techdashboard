@@ -14,7 +14,8 @@ def run():
     @st.cache_data
     def load_data():
         try:
-            df = pd.read_excel("book1.xlsx")
+        file_path = os.path.join(os.path.dirname(__file__), "book1.xlsx")
+        df = pd.read_excel(file_path)
             df.columns = df.columns.str.strip()
             return df
         except Exception as e:
