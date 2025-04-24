@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import os
 
 def run():
     # Page config only if run directly (safe fallback)
@@ -12,16 +13,15 @@ def run():
 
     # Load Excel file
     @st.cache_data
-def load_data():
-    try:
-        import os
-        file_path = os.path.join(os.path.dirname(__file__), "book1.xlsx")
-        df = pd.read_excel(file_path)
-        df.columns = df.columns.str.strip()
-        return df
-    except Exception as e:
-        st.error(f"Error loading file: {e}")
-        return pd.DataFrame()
+    def load_data():
+        try:
+            file_path = os.path.join(os.path.dirname(__file__), "book1.xlsx")
+            df = pd.read_excel(file_path)
+            df.columns = df.columns.str.strip()
+            return df
+        except Exception as e:
+            st.error(f"Error loading file: {e}")
+            return pd.DataFrame()
 
     df = load_data()
 
@@ -74,5 +74,4 @@ def load_data():
     st.markdown("---")
     if st.button("🔙 Back to Dashboard"):
         st.session_state["item_select"] = ""  # optional: reset selection
-        st.experimental_set_query_params(page="dashboard")  # just a placeholder
         st.experimental_rerun()
