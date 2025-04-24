@@ -12,15 +12,16 @@ def run():
 
     # Load Excel file
     @st.cache_data
-    def load_data():
-        try:
+def load_data():
+    try:
+        import os
         file_path = os.path.join(os.path.dirname(__file__), "book1.xlsx")
         df = pd.read_excel(file_path)
-            df.columns = df.columns.str.strip()
-            return df
-        except Exception as e:
-            st.error(f"Error loading file: {e}")
-            return pd.DataFrame()
+        df.columns = df.columns.str.strip()
+        return df
+    except Exception as e:
+        st.error(f"Error loading file: {e}")
+        return pd.DataFrame()
 
     df = load_data()
 
