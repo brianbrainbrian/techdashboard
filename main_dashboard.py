@@ -10,7 +10,15 @@ def reset_to_dashboard():
 
 # ---------- Page Config ----------
 st.set_page_config(page_title="Operations Dashboard", layout="wide")
-st.markdown("<style>button {height: 100px !important; width: 100% !important;}</style>", unsafe_allow_html=True)
+st.markdown("""
+    <style>
+        button {
+            height: 100px !important;
+            width: 100% !important;
+            font-size: 18px !important;
+        }
+    </style>
+""", unsafe_allow_html=True)
 
 # ---------- App List ----------
 APPS = {
@@ -47,11 +55,6 @@ else:
     for i, (app_label, app_module) in enumerate(APPS.items()):
         col = cols[i % 2]
         with col:
-            if st.button(app_label):
+            if st.button(app_label, key=f"button_{app_module}"):
                 st.session_state.current_app = app_module
-                st.experimental_rerun()  # ✅ This is the missing piece
-
-        col = cols[i % 2]
-        with col:
-            if st.button(app_label):
-                st.session_state.current_app = app_module
+                st.experimental_rerun()
