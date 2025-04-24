@@ -49,3 +49,9 @@ else:
         with col:
             if st.button(app_label):
                 st.session_state.current_app = app_module
+                st.experimental_rerun()  # ✅ This is the missing piece
+
+        col = cols[i % 2]
+        with col:
+            if st.button(app_label):
+                st.session_state.current_app = app_module
